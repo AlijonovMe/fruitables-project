@@ -40,7 +40,7 @@ class ProductImageInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'slug', 'price', 'quantity', 'quality', 'weight', 'category', 'get_image')
+    list_display = ('id', 'name', 'slug', 'price', 'discount', 'quantity', 'quality', 'weight', 'category', 'get_image')
     list_display_links = ('id', 'name')
     prepopulated_fields = {'slug': ('name',)}
 

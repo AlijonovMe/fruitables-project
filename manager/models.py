@@ -51,6 +51,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=250, unique=True, verbose_name='Identifikatori')
     description = models.TextField(null=True, blank=True, verbose_name='Tavsifi')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Narxi')
+    discount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Chegirma narxi', help_text='Chegirma narxini kiriting. Masalan: 10000')
     quantity = models.IntegerField(default=15, verbose_name='Miqdori')
     quality = models.CharField(max_length=10, verbose_name='Sifati')
     weight = models.CharField(max_length=2, choices=TYPES, verbose_name="O'lchov birligi")

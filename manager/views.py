@@ -15,6 +15,41 @@ from django.views import View
 from .models import *
 
 
-class Home(ListView):
-    model = Product
-    template_name = 'index.html'
+class Home(View):
+    def get(self, request):
+        return render(request, 'index.html')
+
+
+class Shop(View):
+    def get(self, request):
+        return render(request, 'shop.html')
+
+
+class ShopDetail(View):
+    def get(self, request):
+        return render(request, 'shop-detail.html')
+
+
+class Cart(View):
+    def get(self, request):
+        return render(request, 'cart.html')
+
+
+class Checkout(View):
+    def get(self, request):
+        return render(request, 'checkout.html')
+
+
+class Testimonial(View):
+    def get(self, request):
+        return render(request, 'testimonial.html')
+
+
+class Contact(View):
+    def get(self, request):
+        return render(request, 'contact.html')
+
+
+class NotFound(View):
+    def get(self, request):
+        return render(request, '404.html')

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>Fruitables - Vegetable Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    {% include 'parts/_style.html' %}
+</head>
+
+<body>
+{% include 'parts/_spinner.html' %}
+{% include 'parts/_navbar.html' %}
+{% include 'parts/_search.html' %}
+
+
+{% block main %}
+{% endblock main %}
+
+
+{% include 'parts/_footer.html' %}
+{% include 'parts/_js.html' %}
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+        class="fa fa-arrow-up"></i></a>
+
+</body>
+</html>
