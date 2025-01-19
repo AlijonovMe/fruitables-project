@@ -1,3 +1,7 @@
+html {
+    user-select: none;
+}
+
 
 /*** Spinner Start ***/
 #spinner {

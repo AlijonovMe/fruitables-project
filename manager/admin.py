@@ -36,11 +36,13 @@ class DepartamentAdmin(admin.ModelAdmin):
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 0
+    min_num = 1
+    validate_min = True
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'slug', 'price', 'discount', 'quantity', 'quality', 'weight', 'category', 'get_image')
+    list_display = ('id', 'name', 'slug', 'currency', 'price', 'discount', 'quantity', 'quality', 'weight', 'category', 'get_image')
     list_display_links = ('id', 'name')
     prepopulated_fields = {'slug': ('name',)}
 
@@ -55,7 +57,7 @@ class ProductAdmin(admin.ModelAdmin):
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def formfield_for_choice_field(self, db_field, request, **kwargs):
-        if db_field.name == "weight":
+        if db_field.name == "weight" or db_field.name == "currency":
             kwargs['choices'] = db_field.get_choices(
                 include_blank=True,
                 blank_choice=[("", "Tanlang")]

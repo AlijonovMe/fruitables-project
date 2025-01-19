@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required, permission_required
@@ -12,12 +14,23 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from datetime import datetime
 from django.views import View
+
 from .models import *
 
 
-class Home(View):
-    def get(self, request):
-        return render(request, 'index.html')
+class HomeListView(ListView):
+    template_name = 'index.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        products = Product.objects.all()
+
+        if len(products) >= 8:
+            product_list = random.sample(list(products), 8)
+        else:
+            product_list = products
+
+        return product_list
 
 
 class Shop(View):
