@@ -33,9 +33,58 @@ class HomeListView(ListView):
         return product_list
 
 
-class Shop(View):
-    def get(self, request):
-        return render(request, 'shop.html')
+class ProductsByDepartment(HomeListView):
+    template_name = 'shop.html'
+    paginate_by = 9
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+
+        department = get_object_or_404(Departament, slug=self.kwargs.get('slug'))
+        categories = Category.objects.filter(departament=department).select_related('departament')
+
+        products = Product.objects.filter(category__departament=department).select_related('category', 'category__departament')
+        featured_products = Product.objects.filter(category__departament=department, discount__gt=0).select_related('category', 'category__departament')
+
+        paginator = Paginator(products, self.paginate_by)
+        page_number = self.request.GET.get('page', 1)
+        page_obj = paginator.page(page_number)
+
+        context['department'] = department
+        context['categories'] = categories
+        context['page_obj'] = page_obj
+        context['featured_products'] = featured_products[:3]
+        context['all_featured_products'] = featured_products[3:]
+
+        return context
+
+
+class ProductsByCategory(HomeListView):
+    template_name = 'shop.html'
+    paginate_by = 9
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+
+        category_slug = self.kwargs.get('slug')
+        category = get_object_or_404(Category, slug=category_slug)
+
+        department = category.departament
+
+        categories = Category.objects.filter(departament=department).select_related('departament')
+        products = Product.objects.filter(category=category).select_related('category')
+        featured_products = Product.objects.filter(category=category, discount__gt=0 ).select_related('category')
+
+        paginator = Paginator(products, self.paginate_by)
+        page_number = self.request.GET.get('page', 1)
+        page_obj = paginator.page(page_number)
+
+        context['categories'] = categories
+        context['page_obj'] = page_obj
+        context['featured_products'] = featured_products[:3]
+        context['all_featured_products'] = featured_products[3:]
+
+        return context
 
 
 class ShopDetail(View):
