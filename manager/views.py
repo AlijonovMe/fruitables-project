@@ -98,9 +98,6 @@ class ProductDetail(DetailView):
     template_name = 'shop-detail.html'
     slug_url_kwarg = 'product_slug'
 
-    def get_object(self, queryset=None):
-        return Product.objects.get(slug=self.kwargs.get('product_slug'))
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -118,8 +115,6 @@ class ProductDetail(DetailView):
             'featured_products': featured_products[:3],
             'all_featured_products': featured_products[3:]
         })
-
-        print(context)
 
         return context
 
