@@ -48,7 +48,6 @@ WEIGHT_TYPES = {
 
 CURRENCY_TYPES = {
     'UZS': "UZS",
-    'USD': "USD",
 }
 
 

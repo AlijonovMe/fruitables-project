@@ -98,9 +98,6 @@ class ProductDetail(DetailView):
     template_name = 'shop-detail.html'
     slug_url_kwarg = 'product_slug'
 
-    def get_object(self, queryset=None):
-        return Product.objects.get(slug=self.kwargs.get('product_slug'))
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -119,14 +116,93 @@ class ProductDetail(DetailView):
             'all_featured_products': featured_products[3:]
         })
 
-        print(context)
-
         return context
 
 
-class Cart(View):
-    def get(self, request):
-        return render(request, 'cart.html')
+class CartAction(View):
+    def post(self, request, **kwargs):
+        product_slug = kwargs.get('product_slug')
+
+        try:
+            product = Product.objects.get(slug=product_slug)
+        except Product.DoesNotExist:
+            return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+        action = request.POST.get('action')
+        quantity = int(request.POST.get('quantity', 1))
+        product_id = str(product.pk)
+
+        products = request.session.get('products', {})
+
+        if action == 'minus':
+            products[product_id] -= 1
+        elif action == 'plus':
+            products[product_id] += 1
+        elif action is None:
+            products[product_id] = quantity
+
+        if products[product_id] <= 0:
+            products.pop(product_id)
+
+        request.session['products'] = products
+        request.session.modified = True
+
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+class DeleteCart(View):
+
+    def post(self, request, **kwargs):
+        product_slug = kwargs.get('product_slug')
+
+        product = Product.objects.get(slug=product_slug)
+        products = request.session.get('products')
+
+        if str(product.pk) in products:
+            del products[str(product.pk)]
+
+        request.session['products'] = products
+        request.session.modified = True
+
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+class Cart(ListView):
+    context_object_name = 'products'
+    template_name = 'cart.html'
+
+    def get_queryset(self):
+        return []
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products: dict = self.request.session.get('products', {})
+        products_details = []
+        shipping = 5000
+        total = 0
+
+        for pk, quantity in products.items():
+            product = Product.objects.get(pk=pk)
+
+            if product.get_discount_price():
+                price = product.get_discount_price()
+            else:
+                price = product.price
+
+            total_price = price * quantity
+
+            total += total_price
+
+            products_details.append({
+                'product': product,
+                'quantity': quantity,
+                'total_price': total_price
+            })
+
+        context['products'] = products_details
+        context['total'] = total
+        context['shipping'] = shipping
+        return context
 
 
 class Checkout(View):

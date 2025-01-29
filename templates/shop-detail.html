@@ -58,21 +58,33 @@
                             <i class="fa fa-star"></i>
                         </div>
                         <p class="mb-4">{{ product.description|linebreaks }}</p>
-                        <div class="input-group quantity mb-5" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+
+                        <form method="post" action="{% url 'add-to-cart' product.slug %}">
+                            {% csrf_token %}
+
+                            <div class="input-group quantity mb-5" style="width: 100px;">
+                                <div class="input-group-btn">
+                                    <span class="btn btn-sm rounded-circle bg-light border quantity-decrease">
+                                        <i class="fa fa-minus"></i>
+                                    </span>
+                                </div>
+
+                                 <input type="text" id="quantityInput" name="quantity"
+                                   class="form-control form-control-sm text-center"
+                                   value="1" readonly
+                                   style="border: none; background: transparent; outline: none; width: 30px;">
+
+                                <div class="input-group-btn">
+                                    <span class="btn btn-sm rounded-circle bg-light border quantity-increase">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </div>
                             </div>
-                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+
+                            <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                            </button>
+                        </form>
                     </div>
                     <div class="col-lg-12">
                         <nav>
@@ -89,17 +101,11 @@
                         </nav>
                         <div class="tab-content mb-5">
                             <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                                <p>The generated Lorem Ipsum is therefore always free from repetition injected humour,
-                                    or non-characteristic words etc.
-                                    Susp endisse ultricies nisi vel quam suscipit </p>
-                                <p>Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish
-                                    filefish Antarctic
-                                    icefish goldeye aholehole trumpetfish pilot fish airbreathing catfish, electric ray
-                                    sweeper.</p>
+                                <p>{{ product.description }}</p>
                                 <div class="px-2">
                                     <div class="row g-4">
                                         <div class="col-6">
-                                            <div class="row text-center align-items-center justify-content-center py-2">
+                                            <div class="row bg-light align-items-center text-center justify-content-center py-2">
                                                 <div class="col-6">
                                                     <p class="mb-0">Unit of measurement</p>
                                                 </div>
@@ -107,7 +113,7 @@
                                                     <p class="mb-0">{{ product.weight }}</p>
                                                 </div>
                                             </div>
-                                            <div class="row bg-light align-items-center text-center justify-content-center py-2">
+                                            <div class="row text-center align-items-center justify-content-center py-2">
                                                 <div class="col-6">
                                                     <p class="mb-0">Quality</p>
                                                 </div>
@@ -115,7 +121,7 @@
                                                     <p class="mb-0">{{ product.quality }}</p>
                                                 </div>
                                             </div>
-                                            <div class="row text-center align-items-center justify-content-center py-2">
+                                            <div class="row bg-light align-items-center text-center justify-content-center py-2">
                                                 <div class="col-6">
                                                     <p class="mb-0">Quantity</p>
                                                 </div>
@@ -364,6 +370,22 @@
             moreProducts.style.display = 'block';
             this.style.display = 'none';
         }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        let quantityInput = document.getElementById("quantityInput");
+
+        document.querySelector(".quantity-decrease").addEventListener("click", function() {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        document.querySelector(".quantity-increase").addEventListener("click", function() {
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+        });
     });
 </script>
 

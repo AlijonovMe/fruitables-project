@@ -51,6 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'fruitables.urls'
+SESSION_COOKIE_AGE = 2100
 
 TEMPLATES = [
     {

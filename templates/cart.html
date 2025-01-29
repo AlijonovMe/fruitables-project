@@ -31,119 +31,69 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'img/vegetable-item-3.png' %}" class="img-fluid me-5 rounded-circle"
-                                 style="width: 80px; height: 80px;" alt="">
-                        </div>
-                    </th>
-                    <td>
-                        <p class="mb-0 mt-4">Big Banana</p>
-                    </td>
-                    <td>
-                        <p class="mb-0 mt-4">2.99 $</p>
-                    </td>
-                    <td>
-                        <div class="input-group quantity mt-4" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                    {% if products %}
+                    {% for item in products %}
+                    <tr>
+                        <th scope="row">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ item.product.images.first.image.url }}" class="img-fluid me-5 rounded-circle"
+                                     style="width: 80px; height: 80px;" alt="">
                             </div>
-                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="mb-0 mt-4">2.99 $</p>
-                    </td>
-                    <td>
-                        <button class="btn btn-md rounded-circle bg-light border mt-4">
-                            <i class="fa fa-times text-danger"></i>
-                        </button>
-                    </td>
+                        </th>
+                        <td>
+                            <p class="mb-0 mt-4">{{ item.product.name }}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 mt-4">{% if item.product.get_discount_price %}{{ item.product.get_discount_price }}{% else %}{{ item.product.price }}{% endif %} {{ item.product.currency }}</p>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'update-to-cart' item.product.slug %}">
+                                {% csrf_token %}
+                                <div class="input-group quantity mt-4" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button type="submit" name="action" value="minus" class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
 
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'img/vegetable-item-5.jpg' %}" class="img-fluid me-5 rounded-circle"
-                                 style="width: 80px; height: 80px;" alt="" alt="">
-                        </div>
-                    </th>
-                    <td>
-                        <p class="mb-0 mt-4">Potatoes</p>
-                    </td>
-                    <td>
-                        <p class="mb-0 mt-4">2.99 $</p>
-                    </td>
-                    <td>
-                        <div class="input-group quantity mt-4" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                    <i class="fa fa-minus"></i>
+                                    <input type="text" name="quantity"
+                                           class="form-control form-control-sm text-center border-0"
+                                           value="{{ item.quantity }}"
+                                           style="border: none; background: transparent; outline: none; width: 30px;" readonly>
+
+                                    <div class="input-group-btn">
+                                        <button type="submit" name="action" value="plus" class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <p class="mb-0 mt-4">{{ item.total_price }} {{ item.product.currency }}</p>
+                        </td>
+
+                        <td>
+                            <form method="post" action="{% url 'delete-to-cart' item.product.slug %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-md rounded-circle bg-light border mt-4">
+                                    <i class="fa fa-times text-danger"></i>
                                 </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <div class="alert alert-warning" role="alert">
+                                <strong>No products in the cart.</strong> Your cart is empty!
                             </div>
-                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="mb-0 mt-4">2.99 $</p>
-                    </td>
-                    <td>
-                        <button class="btn btn-md rounded-circle bg-light border mt-4">
-                            <i class="fa fa-times text-danger"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'img/vegetable-item-2.jpg' %}" class="img-fluid me-5 rounded-circle"
-                                 style="width: 80px; height: 80px;" alt="" alt="">
-                        </div>
-                    </th>
-                    <td>
-                        <p class="mb-0 mt-4">Awesome Brocoli</p>
-                    </td>
-                    <td>
-                        <p class="mb-0 mt-4">2.99 $</p>
-                    </td>
-                    <td>
-                        <div class="input-group quantity mt-4" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="mb-0 mt-4">2.99 $</p>
-                    </td>
-                    <td>
-                        <button class="btn btn-md rounded-circle bg-light border mt-4">
-                            <i class="fa fa-times text-danger"></i>
-                        </button>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                    {% endif %}
                 </tbody>
+
             </table>
         </div>
         <div class="mt-5">
@@ -158,19 +108,19 @@
                         <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                         <div class="d-flex justify-content-between mb-4">
                             <h5 class="mb-0 me-4">Subtotal:</h5>
-                            <p class="mb-0">$96.00</p>
+                            <p class="mb-0">{{ total }} UZS</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h5 class="mb-0 me-4">Shipping</h5>
                             <div class="">
-                                <p class="mb-0">Flat rate: $3.00</p>
+                                <p class="mb-0">Flat rate: {{ shipping }} UZS</p>
                             </div>
                         </div>
-                        <p class="mb-0 text-end">Shipping to Ukraine.</p>
+                        <p class="mb-0 text-end">Delivery across Uzbekistan.</p>
                     </div>
                     <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                         <h5 class="mb-0 ps-4 me-4">Total</h5>
-                        <p class="mb-0 pe-4">$99.00</p>
+                        <p class="mb-0 pe-4">{% if total != 0 %}{{ total|add:shipping|floatformat:2 }}{% else %}0{% endif %} UZS</p>
                     </div>
                     <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
                             type="button">Proceed Checkout
