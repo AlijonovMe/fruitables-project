@@ -1,4 +1,6 @@
 from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
+from django.utils.translation import get_language
 from django.utils.safestring import mark_safe
 
 from .models import *
@@ -14,23 +16,24 @@ class MyUserAdmin(admin.ModelAdmin):
 
 class CategoryInline(admin.TabularInline):
     model = Category
-    prepopulated_fields = {'slug': ('name',)}
+    fields = ('name_uz', 'name_en', 'slug_uz', 'slug_en')
+    prepopulated_fields = {
+        'slug_uz': ('name_uz',),
+        'slug_en': ('name_en',)
+    }
+
     extra = 0
 
 
 @admin.register(Departament)
-class DepartamentAdmin(admin.ModelAdmin):
+class DepartamentAdmin(TranslationAdmin):
     list_display = ('id', 'name', 'slug')
     list_display_links = ('id', 'name')
     prepopulated_fields = {'slug': ('name',)}
-
-    inlines = [
-        CategoryInline
-    ]
+    inlines = [CategoryInline]
 
     def get_fieldsets(self, request, obj=None):
-        field = [("Bo'lim", {'fields': ['name', 'slug']})]
-        return field
+        return [("Bo'lim", {'fields': ('name_uz', 'name_en', 'slug_uz', 'slug_en')})]
 
 
 class ProductImageInline(admin.TabularInline):
@@ -41,11 +44,24 @@ class ProductImageInline(admin.TabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'slug', 'currency', 'price', 'discount', 'quantity', 'quality', 'weight', 'category', 'get_image')
-    list_display_links = ('id', 'name')
-    prepopulated_fields = {'slug': ('name',)}
+class ProductAdmin(TranslationAdmin):
+    list_display = ('id', 'get_name', 'get_slug', 'currency', 'price', 'discount', 'quantity', 'quality', 'weight', 'category', 'get_image')
+    list_display_links = ('id', 'get_name')
 
+    fieldsets = (
+        ('Asosiy ma’lumotlar', {
+            'fields': ('name', 'slug', 'description'),
+            'classes': ('collapse',),
+        }),
+        ('Qo‘shimcha ma’lumotlar', {
+            'fields': [field.name for field in Product._meta.concrete_fields if field.name not in [
+                'id', 'name', 'slug', 'description', 'name_uz', 'name_en', 'slug_uz', 'slug_en', 'description_uz',
+                'description_en'
+            ]],
+        }),
+    )
+
+    prepopulated_fields = {'slug': ('name',)}
     inlines = [ProductImageInline]
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -64,9 +80,25 @@ class ProductAdmin(admin.ModelAdmin):
             )
         return super().formfield_for_choice_field(db_field, request, **kwargs)
 
-    def get_fieldsets(self, request, obj=None):
-        fields = [field.name for field in Product._meta.fields if field.name != 'id']
-        return [("Mahsulot", {'fields': fields})]
+    def get_name(self, obj):
+        current_language = get_language()
+        if current_language == 'uz':
+            return obj.name_uz
+        elif current_language == 'en':
+            return obj.name_en
+        return obj.name
+
+    get_name.short_description = 'Name'
+
+    def get_slug(self, obj):
+        current_language = get_language()
+        if current_language == 'uz':
+            return obj.slug_uz
+        elif current_language == 'en':
+            return obj.slug_en
+        return obj.slug
+
+    get_slug.short_description = 'Slug'
 
     def get_image(self, product):
         images = product.images.all()
@@ -75,3 +107,6 @@ class ProductAdmin(admin.ModelAdmin):
         return ''
 
     get_image.short_description = 'Surati'
+
+
+

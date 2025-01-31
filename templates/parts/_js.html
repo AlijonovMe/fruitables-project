@@ -10,3 +10,12 @@
 
 <!-- Template Javascript -->
 <script src="{% static 'js/main.js' %}"></script>
+<script>
+    document.querySelectorAll('.language-link').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('language-input').value = this.dataset.lang;
+            document.getElementById('language-form').submit();
+        });
+    });
+</script>

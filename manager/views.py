@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
 from django.core.handlers.wsgi import WSGIRequest
-from django.contrib.auth.views import LoginView
+# from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import *
 from django.core.mail import send_mail
@@ -203,6 +203,16 @@ class Cart(ListView):
         context['total'] = total
         context['shipping'] = shipping
         return context
+
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'registration/login.html')
+
+
+class RegisterView(View):
+    def get(self, request):
+        return render(request, 'registration/register.html')
 
 
 class Checkout(View):

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'jazzmin',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -109,9 +112,23 @@ LANGUAGE_CODE = 'uz'
 TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 
+# Translation
+# https://docs.djangoproject.com/en/5.1/topics/i18n/translation/
+
+LANGUAGES = [
+    ('uz', _('Uzbek')),
+    ('en', _('English'))
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale'
+]
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
 
 # Auth user model
 
@@ -121,12 +138,6 @@ AUTH_USER_MODEL = 'manager.MyUser'
 
 LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/'
-
-# Interal ips
-
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

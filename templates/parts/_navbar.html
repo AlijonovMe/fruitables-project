@@ -14,9 +14,9 @@
                 </small>
             </div>
             <div class="top-link pe-2">
-                <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                <a href="#" class="text-white"><small class="text-white mx-2">{% trans 'Maxfiylik siyosati' %}</small>/</a>
+                <a href="#" class="text-white"><small class="text-white mx-2">{% trans 'Foydalanish shartlari' %}</small>/</a>
+                <a href="#" class="text-white"><small class="text-white ms-2">{% trans 'Sotish va pulni qaytarish' %}</small></a>
             </div>
         </div>
     </div>
@@ -29,28 +29,42 @@
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
+                    <a href="{% url 'home' %}" class="nav-item nav-link active">{% trans 'Bosh sahifa' %}</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Department</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{% trans "Bo'limlar" %}</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
                             {% all_departament as departments %}
+                            {% if departments %}
                             {% for department in departments %}
                             <a href="{% url 'department' department.slug %}" class="dropdown-item">{{ department.name }}</a>
                             {% endfor %}
+                            {% else %}
+                            <a href="" class="dropdown-item">Bo'limlar topilmadi.</a>
+                            {% endif %}
                         </div>
                     </div>
-                    <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
+                    <a href="{% url 'contact' %}" class="nav-item nav-link">{% trans "Bog'lanish" %}</a>
                 </div>
                 <div class="d-flex m-3 me-0">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fas fa-globe"></i> Language
-                        </a>
-                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="#" class="dropdown-item">O'zbek</a>
-                            <a href="#" class="dropdown-item">English</a>
-                        </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="fas fa-globe"></i> {% trans 'Til' %}
+                    </a>
+                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                        <form id="language-form" action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="language" id="language-input">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang in LANGUAGES %}
+                                <a href="#" class="dropdown-item language-link" data-lang="{{ lang.0 }}">
+                                    {{ lang.1 }}
+                                </a>
+                            {% endfor %}
+                        </form>
                     </div>
+                </div>
+
                     <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                             data-bs-toggle="modal" data-bs-target="#searchModal"><i
                             class="fas fa-search text-primary"></i></button>

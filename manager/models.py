@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.translation import get_language
 from django.db import models
 
 
@@ -18,6 +19,14 @@ class Departament(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_slug(self):
+        current_language = get_language()
+        if current_language == 'uz':
+            return self.slug_uz
+        elif current_language == 'en':
+            return self.slug_en
+        return self.slug
 
     class Meta:
         verbose_name = "Bo'lim "
@@ -63,7 +72,7 @@ class Product(models.Model):
     quantity = models.IntegerField(default=0, verbose_name='Miqdori', validators=[MinValueValidator(0)],)
     quality = models.CharField(max_length=10, verbose_name='Sifati')
     weight = models.CharField(max_length=2, choices=WEIGHT_TYPES, verbose_name="O'lchov birligi")
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='products', null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', null=True)
 
     def __str__(self):
         return self.name
