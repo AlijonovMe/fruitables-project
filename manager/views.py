@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
 from django.core.handlers.wsgi import WSGIRequest
-# from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView
+from django.utils.translation import gettext as _
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import *
 from django.core.mail import send_mail
@@ -16,6 +17,9 @@ from datetime import datetime
 from django.views import View
 
 from .models import *
+from .forms import *
+from .decoratos import *
+from .mixins import *
 
 
 class HomeListView(ListView):
@@ -93,10 +97,11 @@ class ProductsByCategory(ProductsByDepartment):
         return context
 
 
-class ProductDetail(DetailView):
+class ProductDetail(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'shop-detail.html'
     slug_url_kwarg = 'product_slug'
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -119,7 +124,9 @@ class ProductDetail(DetailView):
         return context
 
 
-class CartAction(View):
+class CartAction(LoginRequiredMixin, View):
+    login_url = reverse_lazy('login')
+
     def post(self, request, **kwargs):
         product_slug = kwargs.get('product_slug')
 
@@ -150,7 +157,8 @@ class CartAction(View):
         return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 
-class DeleteCart(View):
+class DeleteCart(LoginRequiredMixin, View):
+    login_url = reverse_lazy('login')
 
     def post(self, request, **kwargs):
         product_slug = kwargs.get('product_slug')
@@ -167,9 +175,10 @@ class DeleteCart(View):
         return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 
-class Cart(ListView):
+class Cart(LoginRequiredMixin, ListView):
     context_object_name = 'products'
     template_name = 'cart.html'
+    login_url = reverse_lazy('login')
 
     def get_queryset(self):
         return []
@@ -205,14 +214,33 @@ class Cart(ListView):
         return context
 
 
-class LoginView(View):
-    def get(self, request):
-        return render(request, 'registration/login.html')
+class LoginPageView(LoginView):
+    form_class = LoginForm
+    redirect_authenticated_user = True
+
+    def form_valid(self, form):
+        messages.success(self.request, _("Siz muvaffaqiyatli tizimga kirdingiz!"))
+        return super().form_valid(form)
 
 
-class RegisterView(View):
+class RegisterView(LoginNoRequired, CreateView):
+    model = MyUser
+    form_class = RegisterForm
+    success_url = reverse_lazy('login')
+    template_name = "registration/register.html"
+    login_url = reverse_lazy('home')
+    
+    def form_valid(self, form):
+        messages.success(self.request, _("Siz muvaffaqiyatli ro'yxatdan o'tdingiz!"))
+        return super().form_valid(form)
+
+
+class LogoutView(LoginRequiredMixin, View):
+
     def get(self, request):
-        return render(request, 'registration/register.html')
+        logout(request)
+        messages.success(self.request, _("Siz muvaffaqiyatli tizimdan chiqdingiz!"))
+        return redirect('login')
 
 
 class Checkout(View):

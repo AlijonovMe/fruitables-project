@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block main %}
 
@@ -8,22 +8,45 @@
         <div class="col-md-6">
             <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white text-center">
-                    <h3>Login</h3>
+                    <h3>{% trans 'Kirish' %}</h3>
                 </div>
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger alert-dismissible fade show text-center position-fixed top-0 start-50 translate-middle-x mt-3"
+                             role="alert" style="width: 50%; z-index: 1050; margin-top: 10px;">
+                            {% for error in form.non_field_errors %}
+                            <p style="font-size: 0.875rem;">{{ error }}</p>
+                            {% endfor %}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
                         </div>
+                        {% endif %}
+
+                        {% for field in form %}
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field }}
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
+
+                        {% if field.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show text-center position-fixed top-0 start-50 translate-middle-x mt-3"
+                             role="alert" style="width: 50%; z-index: 1050; margin-top: 10px;">
+
+                            {% for error in field.errors %}
+                            <p style="font-size: 0.875rem;">{{ error }}</p>
+                            {% endfor %}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary w-100">{% trans 'Kirish' %}</button>
                     </form>
-                    <p class="text-center mt-3">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+                    <p class="text-center mt-3">{% trans "Hisobingiz yo'qmi?" %} <a href="{% url 'register' %}">{% trans "Ro'yxatdan o'tish" %}</a></p>
                 </div>
             </div>
         </div>

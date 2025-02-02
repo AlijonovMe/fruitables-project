@@ -18,4 +18,16 @@
             document.getElementById('language-form').submit();
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const alerts = document.querySelectorAll('.alert');
+
+        alerts.forEach(alert => {
+            const bsAlert = new bootstrap.Alert(alert);
+
+            setTimeout(() => {
+                bsAlert.close();
+            }, 3000);
+        });
+    });
 </script>

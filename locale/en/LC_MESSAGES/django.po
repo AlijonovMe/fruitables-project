@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-31 15:49+0500\n"
+"POT-Creation-Date: 2025-02-02 12:12+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,9 +26,31 @@ msgstr ""
 msgid "English"
 msgstr ""
 
+#: .\manager\forms.py:19 .\manager\forms.py:32
+msgid "Foydalanuvchi nomi"
+msgstr "Username"
+
+#: .\manager\forms.py:20
+msgid "Parol"
+msgstr "Password"
+
+#: .\manager\forms.py:33
+msgid "Elektron pochta manzili"
+msgstr "Email"
+
+#: .\manager\views.py:217
+msgid "Siz muvaffaqiyatli tizimga kirdingiz!"
+msgstr "You have successfully logged in!"
+
+#: .\manager\views.py:229
+msgid "Siz muvaffaqiyatli ro'yxatdan o'tdingiz!"
+msgstr "You have successfully registered!"
+
+#: .\manager\views.py:237
+msgid "Siz muvaffaqiyatli tizimdan chiqdingiz!"
+msgstr "You have successfully logged out!"
+
 #: .\templates\index.html:11
-#, fuzzy, python-format
-#| msgid "100%% organik oziq-ovqatlar"
 msgid "100%% organik oziq-ovqatlar"
 msgstr "100% organic foods"
 
@@ -125,30 +147,101 @@ msgstr "Discount 5,000 UZS"
 msgid "Yangi organik mahsulotlar"
 msgstr "Fresh Organic products"
 
-#: .\templates\parts\_navbar.html:17
+#: .\templates\index.html:288
+msgid "mamnun mijozlar"
+msgstr "satisfied customers"
+
+#: .\templates\index.html:295
+msgid "xizmat sifati"
+msgstr "quality of service"
+
+#: .\templates\index.html:302
+msgid "sifat sertifikatlari"
+msgstr "quality certificates"
+
+#: .\templates\index.html:309
+msgid "mavjud mahsulotlar"
+msgstr "Available Products"
+
+#: .\templates\index.html:324
+msgid "Bizning guvohligimiz"
+msgstr "Our Testimonial"
+
+#: .\templates\index.html:325
+msgid "Bizning mijozimiz aytadi!"
+msgstr "Our Client Saying!"
+
+#: .\templates\index.html:333
+msgid ""
+"Lorem Ipsum - bu sanoat bo'lgan Ipsum bosma nashrining oddiy matni\n"
+" 1500-yillardan beri standart soxta matn,"
+msgstr ""
+"Lorem Ipsum - this is the standard dummy text of the printing industry\n"
+" used since the 1500s."
+
+#: .\templates\index.html:343
+msgid "Mijoz nomi"
+msgstr "Client Name"
+
+#: .\templates\index.html:344
+msgid "Kasb-hunar"
+msgstr "Profession"
+
+#: .\templates\parts\_navbar.html:16
 msgid "Maxfiylik siyosati"
 msgstr "Privacy Policy"
 
-#: .\templates\parts\_navbar.html:18
+#: .\templates\parts\_navbar.html:17
 msgid "Foydalanish shartlari"
 msgstr "Terms of Use"
 
-#: .\templates\parts\_navbar.html:19
+#: .\templates\parts\_navbar.html:18
 msgid "Sotish va pulni qaytarish"
 msgstr "Sales and Refunds"
 
-#: .\templates\parts\_navbar.html:32
+#: .\templates\parts\_navbar.html:31
 msgid "Bosh sahifa"
 msgstr "Home"
 
-#: .\templates\parts\_navbar.html:34
+#: .\templates\parts\_navbar.html:33
 msgid "Bo'limlar"
 msgstr "Departments"
 
-#: .\templates\parts\_navbar.html:46
+#: .\templates\parts\_navbar.html:45
 msgid "Bog'lanish"
 msgstr "Contact"
 
 #: .\templates\parts\_navbar.html:51
 msgid "Til"
 msgstr "Language"
+
+#: .\templates\parts\_navbar.html:75
+msgid "Sozlamalar"
+msgstr "Settings"
+
+#: .\templates\parts\_navbar.html:76
+msgid "Chiqish"
+msgstr "Logout"
+
+#: .\templates\parts\_navbar.html:78 .\templates\registration\login.html:11
+#: .\templates\registration\login.html:47
+#: .\templates\registration\register.html:48
+msgid "Kirish"
+msgstr "Login"
+
+#: .\templates\parts\_navbar.html:79 .\templates\registration\login.html:49
+#: .\templates\registration\register.html:10
+#: .\templates\registration\register.html:46
+msgid "Ro'yxatdan o'tish"
+msgstr "Sign Up"
+
+#: .\templates\registration\login.html:49
+msgid "Hisobingiz yo'qmi?"
+msgstr "Don't have an account?"
+
+#: .\templates\registration\register.html:48
+msgid "Hisobingiz bormi?"
+msgstr "Already have an account?"
+
+#~ msgid "Parolni tasdiqlang"
+#~ msgstr "Confirm password"

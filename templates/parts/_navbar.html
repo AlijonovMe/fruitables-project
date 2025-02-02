@@ -1,7 +1,6 @@
 {% load static i18n custom_tags %}
 
 <!-- Navbar start -->
-
 <div class="container-fluid fixed-top">
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
@@ -46,24 +45,41 @@
                     <a href="{% url 'contact' %}" class="nav-item nav-link">{% trans "Bog'lanish" %}</a>
                 </div>
                 <div class="d-flex m-3 me-0">
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <i class="fas fa-globe"></i> {% trans 'Til' %}
-                    </a>
-                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                        <form id="language-form" action="{% url 'set_language' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="language" id="language-input">
-                            {% get_current_language as LANGUAGE_CODE %}
-                            {% get_available_languages as LANGUAGES %}
-                            {% for lang in LANGUAGES %}
-                                <a href="#" class="dropdown-item language-link" data-lang="{{ lang.0 }}">
-                                    {{ lang.1 }}
-                                </a>
-                            {% endfor %}
-                        </form>
+                    <!-- Language Dropdown -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-globe"></i> {% trans 'Til' %}
+                        </a>
+                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                            <form id="language-form" action="{% url 'set_language' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="language" id="language-input">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% for lang in LANGUAGES %}
+                                    <a href="#" class="dropdown-item language-link" data-lang="{{ lang.0 }}">
+                                        {{ lang.1 }}
+                                    </a>
+                                {% endfor %}
+                            </form>
+                        </div>
                     </div>
-                </div>
+
+                    <!-- User Icon Dropdown -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-user fa-2x"></i>
+                        </a>
+                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'home' %}" class="dropdown-item">{% trans 'Sozlamalar' %}</a>
+                            <a href="{% url 'logout' %}" class="dropdown-item">{% trans 'Chiqish' %}</a>
+                            {% else %}
+                            <a href="{% url 'login' %}" class="dropdown-item">{% trans 'Kirish' %}</a>
+                            <a href="{% url 'register' %}" class="dropdown-item">{% trans "Ro'yxatdan o'tish" %}</a>
+                            {% endif %}
+                        </div>
+                    </div>
 
                     <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                             data-bs-toggle="modal" data-bs-target="#searchModal"><i
@@ -73,13 +89,9 @@
                         <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                               style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{% cart_item_count request %}</span>
                     </a>
-                    <a href="#" class="my-auto">
-                        <i class="fas fa-user fa-2x"></i>
-                    </a>
                 </div>
             </div>
         </nav>
     </div>
 </div>
-
 <!-- Navbar End -->
