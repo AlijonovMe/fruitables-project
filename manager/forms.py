@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from .models import *
 
@@ -30,7 +30,7 @@ class RegisterForm(UserCreationForm):
 
         labels = {
             'username': _("Foydalanuvchi nomi"),
-            'email': _("Elektron pochta manzili")
+            'email': _("Elektron pochta")
         }
 
     def __init__(self, *args, **kwargs):

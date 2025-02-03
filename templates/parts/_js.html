@@ -20,9 +20,13 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        const alerts = document.querySelectorAll('.alert');
+    const alerts = document.querySelectorAll('.alert');
 
         alerts.forEach(alert => {
+            if (alert.id === "no-product-alert") {
+                return;
+            }
+
             const bsAlert = new bootstrap.Alert(alert);
 
             setTimeout(() => {
@@ -30,4 +34,5 @@
             }, 3000);
         });
     });
+
 </script>

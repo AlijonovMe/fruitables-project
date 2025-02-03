@@ -4,10 +4,10 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
 from django.core.handlers.wsgi import WSGIRequest
 from django.contrib.auth.views import LoginView
-from django.utils.translation import gettext as _
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import *
 from django.core.mail import send_mail
@@ -101,7 +101,7 @@ class ProductDetail(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'shop-detail.html'
     slug_url_kwarg = 'product_slug'
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('register')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -125,7 +125,7 @@ class ProductDetail(LoginRequiredMixin, DetailView):
 
 
 class CartAction(LoginRequiredMixin, View):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('register')
 
     def post(self, request, **kwargs):
         product_slug = kwargs.get('product_slug')
@@ -144,9 +144,18 @@ class CartAction(LoginRequiredMixin, View):
         if action == 'minus':
             products[product_id] -= 1
         elif action == 'plus':
+            if products.get(product_id, 0) + 1 > product.quantity:
+                product_name = product.name
+                messages.error(request, _("%(product_name)s mahsuloti sotuvda tugadi.") % {"product_name": product_name})
+                return redirect(request.META.get('HTTP_REFERER', 'home'))
             products[product_id] += 1
         elif action is None:
-            products[product_id] = quantity
+            product_name = product.name
+            if product_id in products:
+                messages.warning(request, _("%(product_name)s savatchaga allaqachon qo'shilgan.") % {"product_name": product_name})
+            else:
+                messages.success(request, _("%(product_name)s savatchaga qo'shildi.") % {"product_name": product_name})
+                products[product_id] = quantity
 
         if products[product_id] <= 0:
             products.pop(product_id)
@@ -158,7 +167,7 @@ class CartAction(LoginRequiredMixin, View):
 
 
 class DeleteCart(LoginRequiredMixin, View):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('register')
 
     def post(self, request, **kwargs):
         product_slug = kwargs.get('product_slug')
@@ -167,6 +176,7 @@ class DeleteCart(LoginRequiredMixin, View):
         products = request.session.get('products')
 
         if str(product.pk) in products:
+            messages.warning(request, _("%(product_name)s savatchadan olib tashlandi.") % {"product_name": product.name})
             del products[str(product.pk)]
 
         request.session['products'] = products
@@ -187,7 +197,7 @@ class Cart(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         products: dict = self.request.session.get('products', {})
         products_details = []
-        shipping = 5000
+        shipping = 50000
         total = 0
 
         for pk, quantity in products.items():

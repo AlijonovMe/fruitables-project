@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-02 12:12+0500\n"
+"POT-Creation-Date: 2025-02-03 11:07+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,143 +35,291 @@ msgid "Parol"
 msgstr "Password"
 
 #: .\manager\forms.py:33
-msgid "Elektron pochta manzili"
+msgid "Elektron pochta"
 msgstr "Email"
 
-#: .\manager\views.py:217
+#: .\manager\views.py:149
+msgid "%(product_name)s mahsuloti sotuvda tugadi."
+msgstr "%(product_name)s is out of stock."
+
+#: .\manager\views.py:155
+msgid "%(product_name)s savatchaga allaqachon qo'shilgan."
+msgstr "%(product_name)s has already been added to the cart."
+
+#: .\manager\views.py:157
+msgid "%(product_name)s savatchaga qo'shildi."
+msgstr "%(product_name)s has been added to cart."
+
+#: .\manager\views.py:179
+msgid "%(product_name)s savatchadan olib tashlandi."
+msgstr "%(product_name)s has been removed from the cart."
+
+#: .\manager\views.py:232
 msgid "Siz muvaffaqiyatli tizimga kirdingiz!"
 msgstr "You have successfully logged in!"
 
-#: .\manager\views.py:229
+#: .\manager\views.py:244
 msgid "Siz muvaffaqiyatli ro'yxatdan o'tdingiz!"
 msgstr "You have successfully registered!"
 
-#: .\manager\views.py:237
+#: .\manager\views.py:252
 msgid "Siz muvaffaqiyatli tizimdan chiqdingiz!"
 msgstr "You have successfully logged out!"
 
-#: .\templates\index.html:11
+#: .\templates\404.html:5 .\templates\404.html:28
+msgid "Sahifa topilmadi"
+msgstr "Page not found"
+
+#: .\templates\404.html:12
+msgid "xato"
+msgstr "error"
+
+#: .\templates\404.html:14 .\templates\cart.html:14 .\templates\contact.html:14
+#: .\templates\index.html:5 .\templates\parts\_navbar.html:31
+#: .\templates\shop-detail.html:14 .\templates\shop.html:14
+msgid "Bosh sahifa"
+msgstr "Home"
+
+#: .\templates\404.html:29
+msgid ""
+"Kechirasiz, siz qidirgan sahifa bizning veb-saytimizda mavjud emas! Balki "
+"biznikiga boring\n"
+" Bosh sahifa yoki qidiruvdan foydalanmoqchimisiz?"
+msgstr ""
+"Sorry, the page you are looking for is not available on our website! Maybe "
+"you want to go to our homepage\n"
+" or use the search function?"
+
+#: .\templates\404.html:31
+msgid "Bosh sahifaga qaytish"
+msgstr "Go back to home"
+
+#: .\templates\cart.html:5 .\templates\cart.html:12 .\templates\cart.html:15
+#: .\templates\cart.html:111
+msgid "Savatcha"
+msgstr "Cart"
+
+#: .\templates\cart.html:28
+msgid "Mahsulotlar"
+msgstr "Products"
+
+#: .\templates\cart.html:29
+msgid "Nomi"
+msgstr "Name"
+
+#: .\templates\cart.html:30
+msgid "Narxi"
+msgstr "Price"
+
+#: .\templates\cart.html:31 .\templates\shop-detail.html:130
+msgid "Miqdori"
+msgstr "Quantity"
+
+#: .\templates\cart.html:32 .\templates\cart.html:111 .\templates\cart.html:125
+msgid "Jami"
+msgstr "Total"
+
+#: .\templates\cart.html:33
+msgid "O'chirish"
+msgstr "Remove"
+
+#: .\templates\cart.html:93
+msgid "Savatda mahsulot yo‘q."
+msgstr "No products in the cart."
+
+#: .\templates\cart.html:93
+msgid "Savatingiz bo'sh!"
+msgstr "Your cart is empty!"
+
+#: .\templates\cart.html:103
+msgid "Kupon kodi"
+msgstr "Coupon Code"
+
+#: .\templates\cart.html:104
+msgid "Kuponni qo'llash"
+msgstr "Apply Coupon"
+
+#: .\templates\cart.html:113
+msgid "Qisman"
+msgstr "Subtotal"
+
+#: .\templates\cart.html:117
+msgid "Yetkazib berish"
+msgstr "Shipping"
+
+#: .\templates\cart.html:119
+msgid "Yagona narx"
+msgstr "Flat rate"
+
+#: .\templates\cart.html:122
+msgid "O'zbekiston bo'ylab yetkazib berish."
+msgstr "Delivery across Uzbekistan."
+
+#: .\templates\cart.html:129
+msgid "To'lovni yakunlash"
+msgstr "Proceed checkout"
+
+#: .\templates\contact.html:5 .\templates\contact.html:12
+#: .\templates\contact.html:15 .\templates\parts\_navbar.html:45
+msgid "Bog'lanish"
+msgstr "Contact"
+
+#: .\templates\contact.html:28
+msgid "Biz bilan bog'lanish"
+msgstr "Contact us"
+
+#: .\templates\contact.html:41 .\templates\shop-detail.html:196
+msgid "Sizning ismingiz"
+msgstr "Your name"
+
+#: .\templates\contact.html:43 .\templates\shop-detail.html:201
+msgid "Sizning elektron pochtangiz"
+msgstr "Your email"
+
+#: .\templates\contact.html:45
+msgid "Sizning xabaringiz"
+msgstr "Your message"
+
+#: .\templates\contact.html:47
+msgid "Yuborish"
+msgstr "Submit"
+
+#: .\templates\contact.html:55
+msgid "Manzil"
+msgstr "Address"
+
+#: .\templates\contact.html:62
+msgid "Elektron pochta manzil"
+msgstr "Email address"
+
+#: .\templates\contact.html:69
+msgid "Telefon raqam"
+msgstr "Phone number"
+
+#: .\templates\index.html:15
 msgid "100%% organik oziq-ovqatlar"
 msgstr "100% organic foods"
 
-#: .\templates\index.html:12
+#: .\templates\index.html:16
 msgid "Organik sabzavotlar va mevalar"
 msgstr "Organic Veggies & Fruits Foods"
 
-#: .\templates\index.html:15
+#: .\templates\index.html:19
 msgid "Qidirish"
 msgstr "Search"
 
-#: .\templates\index.html:18
+#: .\templates\index.html:22
 msgid "Hozir yuboring"
 msgstr "Submit Now"
 
-#: .\templates\index.html:28
+#: .\templates\index.html:32 .\templates\shop-detail.html:334
+#: .\templates\shop.html:133
 msgid "Mevalar"
 msgstr "Fruits"
 
-#: .\templates\index.html:33
+#: .\templates\index.html:37
 msgid "Sabzavotlar"
 msgstr "Vegetables"
 
-#: .\templates\index.html:64
+#: .\templates\index.html:68
 msgid "Yetkazib berish bepul"
 msgstr "Free shipping"
 
-#: .\templates\index.html:65
+#: .\templates\index.html:69
 msgid "$300 dan ortiq buyurtma berish uchun bepul"
 msgstr "Free for orders over $300"
 
-#: .\templates\index.html:75
+#: .\templates\index.html:79
 msgid "Xavfsiz to'lov"
 msgstr "Secure payment"
 
-#: .\templates\index.html:76
+#: .\templates\index.html:80
 msgid "100%% Xavfsiz to'lov"
 msgstr "100% Secure payment"
 
-#: .\templates\index.html:86
+#: .\templates\index.html:90
 msgid "30 kunlik qaytish"
 msgstr "30 Day Returns"
 
-#: .\templates\index.html:87
+#: .\templates\index.html:91
 msgid "30 kunlik pul kafolati"
 msgstr "30 day money guarantee"
 
-#: .\templates\index.html:97
+#: .\templates\index.html:101
 msgid "24/7 qo'llab-quvvatlash"
 msgstr "24/7 Support"
 
-#: .\templates\index.html:98
+#: .\templates\index.html:102
 msgid "Har safar tez qo'llab-quvvatlang"
 msgstr "Support every time fast"
 
-#: .\templates\index.html:114
+#: .\templates\index.html:118
 msgid "Bizning organik mahsulotlarimiz"
 msgstr "Our organic products"
 
-#: .\templates\index.html:120
+#: .\templates\index.html:124
 msgid "Barcha mahsulotlar"
 msgstr "All products"
 
-#: .\templates\index.html:152 .\templates\index.html:181
-#: .\templates\index.html:269
+#: .\templates\index.html:156 .\templates\index.html:185
+#: .\templates\index.html:273 .\templates\shop-detail.html:89
+#: .\templates\shop-detail.html:361 .\templates\shop.html:161
 msgid "Savatchaga qo'shish"
 msgstr "Add to cart"
 
-#: .\templates\index.html:209
+#: .\templates\index.html:213
 msgid "Yangi olma"
 msgstr "Fresh apple"
 
-#: .\templates\index.html:210
+#: .\templates\index.html:214
 msgid "20%% chegirma"
 msgstr "20% OFF"
 
-#: .\templates\index.html:222
+#: .\templates\index.html:226
 msgid "Mazali mevalar"
 msgstr "Delicious fruits"
 
-#: .\templates\index.html:223
+#: .\templates\index.html:227
 msgid "Bepul yetkazib berish"
 msgstr "Free shipping"
 
-#: .\templates\index.html:235
+#: .\templates\index.html:239
 msgid "Ekzotik sabzavotlar"
 msgstr "Exotic Vegitable"
 
-#: .\templates\index.html:236
+#: .\templates\index.html:240
 msgid "Chegirma 5,000 UZS"
 msgstr "Discount 5,000 UZS"
 
-#: .\templates\index.html:251
+#: .\templates\index.html:255
 msgid "Yangi organik mahsulotlar"
 msgstr "Fresh Organic products"
 
-#: .\templates\index.html:288
+#: .\templates\index.html:292
 msgid "mamnun mijozlar"
 msgstr "satisfied customers"
 
-#: .\templates\index.html:295
+#: .\templates\index.html:299
 msgid "xizmat sifati"
 msgstr "quality of service"
 
-#: .\templates\index.html:302
+#: .\templates\index.html:306
 msgid "sifat sertifikatlari"
 msgstr "quality certificates"
 
-#: .\templates\index.html:309
+#: .\templates\index.html:313
 msgid "mavjud mahsulotlar"
 msgstr "Available Products"
 
-#: .\templates\index.html:324
+#: .\templates\index.html:328
 msgid "Bizning guvohligimiz"
 msgstr "Our Testimonial"
 
-#: .\templates\index.html:325
+#: .\templates\index.html:329
 msgid "Bizning mijozimiz aytadi!"
 msgstr "Our Client Saying!"
 
-#: .\templates\index.html:333
+#: .\templates\index.html:337
 msgid ""
 "Lorem Ipsum - bu sanoat bo'lgan Ipsum bosma nashrining oddiy matni\n"
 " 1500-yillardan beri standart soxta matn,"
@@ -179,11 +327,11 @@ msgstr ""
 "Lorem Ipsum - this is the standard dummy text of the printing industry\n"
 " used since the 1500s."
 
-#: .\templates\index.html:343
+#: .\templates\index.html:347
 msgid "Mijoz nomi"
 msgstr "Client Name"
 
-#: .\templates\index.html:344
+#: .\templates\index.html:348
 msgid "Kasb-hunar"
 msgstr "Profession"
 
@@ -199,17 +347,9 @@ msgstr "Terms of Use"
 msgid "Sotish va pulni qaytarish"
 msgstr "Sales and Refunds"
 
-#: .\templates\parts\_navbar.html:31
-msgid "Bosh sahifa"
-msgstr "Home"
-
 #: .\templates\parts\_navbar.html:33
 msgid "Bo'limlar"
 msgstr "Departments"
-
-#: .\templates\parts\_navbar.html:45
-msgid "Bog'lanish"
-msgstr "Contact"
 
 #: .\templates\parts\_navbar.html:51
 msgid "Til"
@@ -242,6 +382,84 @@ msgstr "Don't have an account?"
 #: .\templates\registration\register.html:48
 msgid "Hisobingiz bormi?"
 msgstr "Already have an account?"
+
+#: .\templates\shop-detail.html:5 .\templates\shop-detail.html:12
+#: .\templates\shop-detail.html:16
+msgid "Do'kon tafsilotlari"
+msgstr "Shop detail"
+
+#: .\templates\shop-detail.html:15 .\templates\shop.html:5
+#: .\templates\shop.html:12 .\templates\shop.html:15
+msgid "Do'kon"
+msgstr "Shop"
+
+#: .\templates\shop-detail.html:37
+msgid "Kategoriya"
+msgstr "Category"
+
+#: .\templates\shop-detail.html:98
+msgid "Tavsifi"
+msgstr "Description"
+
+#: .\templates\shop-detail.html:102
+msgid "Sharhlar"
+msgstr "Reviews"
+
+#: .\templates\shop-detail.html:114
+msgid "O'lchov birligi"
+msgstr "Unit of measurement"
+
+#: .\templates\shop-detail.html:122
+msgid "Sifati"
+msgstr "Quality"
+
+#: .\templates\shop-detail.html:192
+msgid "Javob qoldiring"
+msgstr "Leave a Reply"
+
+#: .\templates\shop-detail.html:207
+msgid "Sizning sharhingiz"
+msgstr "Your review"
+
+#: .\templates\shop-detail.html:213
+msgid "Iltimos baho bering:"
+msgstr "Please rate:"
+
+#: .\templates\shop-detail.html:223
+msgid "Fikr qoldirish"
+msgstr "Post comment"
+
+#: .\templates\shop-detail.html:239 .\templates\shop.html:41
+msgid "Kategoriyalar"
+msgstr "Categories"
+
+#: .\templates\shop-detail.html:251
+msgid "Kategoriyalar topilmadi."
+msgstr "No categories found."
+
+#: .\templates\shop-detail.html:257 .\templates\shop.html:56
+msgid "Tanlangan mahsulotlar"
+msgstr "Featured products"
+
+#: .\templates\shop-detail.html:287
+msgid "Tanlangan mahsulotlar mavjud emas."
+msgstr "Featured products are not available."
+
+#: .\templates\shop-detail.html:325 .\templates\shop.html:122
+msgid "Ko'proq ko'rish"
+msgstr "View more"
+
+#: .\templates\shop-detail.html:334 .\templates\shop.html:133
+msgid "Yangi"
+msgstr "Fresh"
+
+#: .\templates\shop-detail.html:335 .\templates\shop.html:134
+msgid "Banner"
+msgstr "Banner"
+
+#: .\templates\shop.html:24
+msgid "Yangi meva do'koni"
+msgstr "Fresh fruit shop"
 
 #~ msgid "Parolni tasdiqlang"
 #~ msgstr "Confirm password"
