@@ -151,11 +151,15 @@ class CartAction(LoginRequiredMixin, View):
             products[product_id] += 1
         elif action is None:
             product_name = product.name
-            if product_id in products:
-                messages.warning(request, _("%(product_name)s savatchaga allaqachon qo'shilgan.") % {"product_name": product_name})
+            if not quantity > product.quantity:
+                if product_id in products:
+                    messages.warning(request, _("%(product_name)s savatchaga allaqachon qo'shilgan.") % {"product_name": product_name})
+                else:
+                    messages.success(request, _("%(product_name)s savatchaga qo'shildi.") % {"product_name": product_name})
+                    products[product_id] = quantity
             else:
-                messages.success(request, _("%(product_name)s savatchaga qo'shildi.") % {"product_name": product_name})
-                products[product_id] = quantity
+                messages.error(request, _("Yaroqsiz miqdor kiritildi."))
+                return redirect(request.META.get('HTTP_REFERER', 'home'))
 
         if products[product_id] <= 0:
             products.pop(product_id)

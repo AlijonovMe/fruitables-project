@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-03 11:07+0500\n"
+"POT-Creation-Date: 2025-02-03 11:29+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,27 +42,31 @@ msgstr "Email"
 msgid "%(product_name)s mahsuloti sotuvda tugadi."
 msgstr "%(product_name)s is out of stock."
 
-#: .\manager\views.py:155
+#: .\manager\views.py:156
 msgid "%(product_name)s savatchaga allaqachon qo'shilgan."
 msgstr "%(product_name)s has already been added to the cart."
 
-#: .\manager\views.py:157
+#: .\manager\views.py:158
 msgid "%(product_name)s savatchaga qo'shildi."
 msgstr "%(product_name)s has been added to cart."
 
-#: .\manager\views.py:179
+#: .\manager\views.py:161
+msgid "Yaroqsiz miqdor kiritildi."
+msgstr "An invalid amount was entered."
+
+#: .\manager\views.py:183
 msgid "%(product_name)s savatchadan olib tashlandi."
 msgstr "%(product_name)s has been removed from the cart."
 
-#: .\manager\views.py:232
+#: .\manager\views.py:236
 msgid "Siz muvaffaqiyatli tizimga kirdingiz!"
 msgstr "You have successfully logged in!"
 
-#: .\manager\views.py:244
+#: .\manager\views.py:248
 msgid "Siz muvaffaqiyatli ro'yxatdan o'tdingiz!"
 msgstr "You have successfully registered!"
 
-#: .\manager\views.py:252
+#: .\manager\views.py:256
 msgid "Siz muvaffaqiyatli tizimdan chiqdingiz!"
 msgstr "You have successfully logged out!"
 
